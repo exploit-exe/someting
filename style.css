@@ -1,0 +1,205 @@
+:root{
+  --book-width:900px;
+  --book-height:600px;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#fdfaf3;
+  font-family:"Special Elite","Courier New",monospace;
+  padding:12px;
+  box-sizing:border-box;
+}
+
+#book{
+  width:var(--book-width);
+  height:var(--book-height);
+  position:relative;
+}
+
+#book .page-wrapper{
+  perspective:2000px;
+}
+
+.page{
+  background:#fdfaf3;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+  box-shadow:none;
+}
+
+
+.page.odd:not(.cover){
+  background:linear-gradient(to left,#ffffff 88%,#9292929c 100%);
+}
+
+.page.even:not(.cover){
+  background:linear-gradient(to right,#ffffff 88%,#9292929c 100%);
+}
+
+.page.odd:not(.cover)::before,
+.page.even:not(.cover)::before{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:rgba(56,37,17,.42);
+  pointer-events:none;
+}
+
+.page.odd:not(.cover)::after,
+.page.even:not(.cover)::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:24px;
+  pointer-events:none;
+}
+
+.page.odd:not(.cover)::before{ right:0; }
+.page.even:not(.cover)::before{ left:0; }
+
+.page.odd:not(.cover)::after{
+  right:0;
+  background:linear-gradient(to left,rgba(39,23,7,.28),rgba(39,23,7,0));
+}
+
+.page.even:not(.cover)::after{
+  left:0;
+  background:linear-gradient(to right,rgba(39,23,7,.28),rgba(39,23,7,0));
+}
+
+.cover{
+  background-color:transparent;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  box-shadow:none;
+}
+
+.hard{
+  box-shadow:none !important;
+}
+
+.front-cover,
+.back-cover{
+  background-color:#fdfaf3;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12), inset 0 0 20px rgba(0,0,0,.18);
+}
+
+.front-cover{
+  background-image:url("book_cover.png");
+}
+
+.back-cover{
+  background-image:url("book_cover_back.png");
+}
+
+.front-cover.cover-tease{
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.12), inset 0 0 20px rgba(0,0,0,.18);
+}
+
+
+.front-cover::after{
+  content:"";
+  width:5px;
+  height:100%;
+  position:absolute;
+  top:0;
+  right:-1px;
+  background:linear-gradient(to right,#bbb,#ddd,#bbb);
+  transform:rotateY(-90deg);
+  transform-origin:top right;
+  pointer-events:none;
+}
+
+.polaroid{
+  width:min(380px,82%);
+  aspect-ratio:19/24;
+  perspective:1200px;
+  cursor:pointer;
+  transition:transform .25s ease;
+  will-change:transform;
+}
+
+.polaroid:hover{
+  transform:scale(1.03);
+}
+
+.card{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform .7s ease;
+  will-change:transform;
+}
+
+.polaroid.flipped .card{
+  transform:rotateY(180deg);
+}
+
+.front,
+.back{
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  background:white;
+  padding:15px 15px 60px;
+  box-shadow:0 15px 30px rgba(0,0,0,.2);
+  box-sizing:border-box;
+}
+
+.front img{
+  width:100%;
+  height:calc(100% - 45px);
+  object-fit:cover;
+  display:block;
+}
+
+.back{
+  transform:rotateY(180deg);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  font-size:clamp(18px,2.2vw,24px);
+  line-height:1.4;
+  font-family:"Special Elite","Courier New",monospace;
+}
+
+@media (max-width:960px){
+  .polaroid{
+    width:min(360px,84%);
+  }
+}
+
+.video-card{
+  width:min(380px,82%);
+  aspect-ratio:19/24;
+  background:white;
+  padding:12px 12px 52px;
+  box-sizing:border-box;
+  box-shadow:0 15px 30px rgba(0,0,0,.2);
+  cursor:pointer;
+}
+
+.memory-video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  background:#000;
+}
